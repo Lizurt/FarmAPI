@@ -1,5 +1,6 @@
-package org.farm.server.model;
+package org.farm.server.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -10,7 +11,7 @@ public class FarmerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "farmer_id")
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String name;
@@ -25,13 +26,14 @@ public class FarmerEntity {
     private String email;
 
     @OneToMany(mappedBy = "producedByFarmer")
+    @JsonIgnore
     private Set<ProductEntity> producedProducts;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

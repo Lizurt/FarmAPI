@@ -1,4 +1,4 @@
-package org.farm.server.model;
+package org.farm.server.model.entities;
 
 import jakarta.persistence.*;
 
@@ -10,12 +10,12 @@ public class ProductEntity {
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private double amount;
 
-    @Column
+    @Column(nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date producedDate;
 
@@ -27,11 +27,11 @@ public class ProductEntity {
     @JoinColumn(name = "product_type_id", nullable = false)
     private ProductTypeEntity productType;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

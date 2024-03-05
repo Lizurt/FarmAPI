@@ -1,7 +1,8 @@
 package org.farm.server.controller;
 
-import org.farm.server.model.ProductEntity;
+import org.farm.server.model.entities.ProductEntity;
 import org.farm.server.repository.ProductRepository;
+import org.farm.server.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,9 +10,12 @@ import java.util.List;
 @RestController
 public class ProductController {
     private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    public ProductController(ProductRepository productRepository) {
+
+    public ProductController(ProductRepository productRepository, ProductService productService) {
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     @GetMapping("/product/get-all")
@@ -21,11 +25,11 @@ public class ProductController {
 
     @PutMapping("/product/save")
     public ProductEntity save(@RequestBody ProductEntity productEntity) {
-        return productRepository.save(productEntity);
+        return productService.saveProduct(productEntity);
     }
 
     @DeleteMapping("/product/delete/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Integer id) {
         productRepository.deleteById(id);
     }
 }

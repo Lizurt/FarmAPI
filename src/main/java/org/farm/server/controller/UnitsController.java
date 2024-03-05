@@ -1,6 +1,6 @@
 package org.farm.server.controller;
 
-import org.farm.server.model.UnitsEntity;
+import org.farm.server.model.entities.UnitsEntity;
 import org.farm.server.repository.UnitsRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +25,7 @@ public class UnitsController {
     }
 
     @DeleteMapping("/units/delete/{id}")
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable Integer id) {
         unitsRepository.deleteById(id);
     }
 }
