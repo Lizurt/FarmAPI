@@ -19,8 +19,8 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    @PostMapping("/product/add")
-    public ProductEntity add(@RequestBody ProductEntity productEntity) {
+    @PutMapping("/product/save")
+    public ProductEntity save(@RequestBody ProductEntity productEntity) {
         return productRepository.save(productEntity);
     }
 

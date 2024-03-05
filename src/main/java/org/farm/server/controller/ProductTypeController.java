@@ -14,7 +14,7 @@ public class ProductTypeController {
         this.productTypeRepository = productTypeRepository;
     }
 
-    @PostMapping("/product-type/add")
+    @PutMapping("/product-type/save")
     public ProductTypeEntity addProductType(@RequestBody ProductTypeEntity productTypeEntity) {
         return productTypeRepository.save(productTypeEntity);
     }

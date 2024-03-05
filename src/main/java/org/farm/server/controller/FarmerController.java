@@ -19,8 +19,8 @@ public class FarmerController {
         return farmerRepository.findAll();
     }
 
-    @PostMapping("/farmer/add")
-    public FarmerEntity add(@RequestBody FarmerEntity farmerEntity) {
+    @PutMapping("/farmer/save")
+    public FarmerEntity save(@RequestBody FarmerEntity farmerEntity) {
         return farmerRepository.save(farmerEntity);
     }
 

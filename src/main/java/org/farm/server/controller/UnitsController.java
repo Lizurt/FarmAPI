@@ -19,8 +19,8 @@ public class UnitsController {
         return unitsRepository.findAll();
     }
 
-    @PostMapping("/units/add")
-    public UnitsEntity add(@RequestBody UnitsEntity unitsEntity) {
+    @PutMapping("/units/save")
+    public UnitsEntity save(@RequestBody UnitsEntity unitsEntity) {
         return unitsRepository.save(unitsEntity);
     }
 
