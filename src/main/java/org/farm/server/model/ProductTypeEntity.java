@@ -21,4 +21,36 @@ public class ProductTypeEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productType")
     private Set<ProductEntity> products;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UnitsEntity getUnits() {
+        return units;
+    }
+
+    public void setUnits(UnitsEntity units) {
+        this.units = units;
+    }
+
+    public Set<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<ProductEntity> products) {
+        this.products = products;
+    }
 }
