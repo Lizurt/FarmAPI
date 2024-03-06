@@ -7,7 +7,9 @@ import org.farm.server.service.ProductService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.List;
 
 @RestController
@@ -85,6 +87,43 @@ public class ProductController {
     @GetMapping("/product/get-statistics/of-farmer/{fid}")
     public List<ProductionStatisticsResponse> getProductionOfFarmer(@PathVariable("fid") Integer farmerId) {
         return productRepository.getProductionOfFarmer(farmerId);
+    }
+
+    @GetMapping("/product/get-statistics/of-period/{d}")
+    public List<ProductionStatisticsResponse> getProductionTypeGroupedForPeriod(
+            @PathVariable("d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date
+    ) {
+        return productRepository.getProductionTypeGroupedForPeriod(date, date);
+    }
+
+    @GetMapping("/product/get-statistics/of-month/{d}")
+    public List<ProductionStatisticsResponse> getProductionTypeGroupedOfMonth(
+            @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM") YearMonth date
+    ) {
+        return productRepository.getProductionTypeGroupedForPeriod(
+                date.atDay(1).atStartOfDay(),
+                date.atEndOfMonth().plusDays(1).atStartOfDay()
+        );
+    }
+
+    @GetMapping("/product/get-statistics/of-week/{d}")
+    public List<ProductionStatisticsResponse> getProductionTypeGroupedOfWeek(
+            @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
+    ) {
+        return productRepository.getProductionTypeGroupedForPeriod(
+                date.minusDays(date.getDayOfWeek().getValue() - 1).atStartOfDay(),
+                date.plusWeeks(1).minusDays(date.getDayOfWeek().getValue() - 1).atStartOfDay()
+        );
+    }
+
+    @GetMapping("/product/get-statistics/of-day/{d}")
+    public List<ProductionStatisticsResponse> getProductionTypeGroupedOfDay(
+            @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
+    ) {
+        return productRepository.getProductionTypeGroupedForPeriod(
+                date.atStartOfDay(),
+                date.plusDays(1).atStartOfDay().minusNanos(1)
+        );
     }
 
     @GetMapping("/product/get-statistics/of-period/{sd}/{ed}")
