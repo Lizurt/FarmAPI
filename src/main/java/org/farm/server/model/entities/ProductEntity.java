@@ -21,7 +21,7 @@ public class ProductEntity {
 
     @ManyToOne
     @JoinColumn(name = "farmer_id")
-    private FarmerEntity producedByFarmer;
+    private FarmerEntity producedBy;
 
     @ManyToOne()
     @JoinColumn(name = "product_type_id", nullable = false)
@@ -51,19 +51,19 @@ public class ProductEntity {
         this.producedDate = producedDate;
     }
 
-    public FarmerEntity getProducedByFarmer() {
-        return producedByFarmer;
-    }
-
-    public void setProducedByFarmer(FarmerEntity producedByFarmer) {
-        this.producedByFarmer = producedByFarmer;
-    }
-
     public ProductTypeEntity getProductType() {
         return productType;
     }
 
     public void setProductType(ProductTypeEntity productType) {
         this.productType = productType;
+    }
+
+    public FarmerEntity getProducedBy() {
+        return producedBy;
+    }
+
+    public void setProducedBy(FarmerEntity producedBy) {
+        this.producedBy = producedBy;
     }
 }

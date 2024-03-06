@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/units")
 public class UnitsController {
     private final UnitsRepository unitsRepository;
 
@@ -14,17 +15,17 @@ public class UnitsController {
         this.unitsRepository = unitsRepository;
     }
 
-    @GetMapping("/units/get-all")
+    @GetMapping("/get-all")
     public List<UnitsEntity> getAll() {
         return unitsRepository.findAll();
     }
 
-    @PutMapping("/units/save")
+    @PutMapping("/save")
     public UnitsEntity save(@RequestBody UnitsEntity unitsEntity) {
         return unitsRepository.save(unitsEntity);
     }
 
-    @DeleteMapping("/units/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
         unitsRepository.deleteById(id);
     }

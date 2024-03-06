@@ -9,8 +9,8 @@ import java.util.Set;
 @Table(name = "farmer")
 public class FarmerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "farmer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
@@ -22,10 +22,11 @@ public class FarmerEntity {
     @Column
     private String patronymic;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
-    @OneToMany(mappedBy = "producedByFarmer")
+    @OneToMany(mappedBy = "producedBy")
     @JsonIgnore
     private Set<ProductEntity> producedProducts;
 
@@ -61,19 +62,19 @@ public class FarmerEntity {
         this.patronymic = patronymic;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Set<ProductEntity> getProducedProducts() {
         return producedProducts;
     }
 
     public void setProducedProducts(Set<ProductEntity> producedProducts) {
         this.producedProducts = producedProducts;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity asUser) {
+        this.user = asUser;
     }
 }

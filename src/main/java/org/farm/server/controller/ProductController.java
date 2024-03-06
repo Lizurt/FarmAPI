@@ -13,6 +13,7 @@ import java.time.YearMonth;
 import java.util.List;
 
 @RestController
+@RequestMapping("/product")
 public class ProductController {
     private final ProductRepository productRepository;
     private final ProductService productService;
@@ -23,32 +24,32 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PutMapping("/product/save")
+    @PutMapping("/save")
     public ProductEntity save(@RequestBody ProductEntity productEntity) {
         return productService.saveProduct(productEntity);
     }
 
-    @DeleteMapping("/product/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
         productRepository.deleteById(id);
     }
 
-    @GetMapping("/product/get-all")
+    @GetMapping("/get-all")
     public List<ProductEntity> getAll() {
         return productRepository.findAll();
     }
 
-    @GetMapping("/product/get-all/of-type/{ptid}")
+    @GetMapping("/get-all/of-type/{ptid}")
     public List<ProductEntity> getAllProductsOfType(@PathVariable("ptid") Integer productTypeId) {
         return productRepository.getAllProductsOfType(productTypeId);
     }
 
-    @GetMapping("/product/get-all/of-farmer/{fid}")
+    @GetMapping("/get-all/of-farmer/{fid}")
     public List<ProductEntity> getAllProductsProducedBy(@PathVariable("fid") Integer farmerId) {
         return productRepository.getAllProductsProducedBy(farmerId);
     }
 
-    @GetMapping("/product/get-all/of-period/{sd}/{ed}")
+    @GetMapping("/get-all/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
@@ -56,7 +57,7 @@ public class ProductController {
         return productRepository.getAllProductsForPeriod(startDate, endDate);
     }
 
-    @GetMapping("/product/get-all/of-type/{tid}/of-period/{sd}/{ed}")
+    @GetMapping("/get-all/of-type/{tid}/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsOfTypeForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
@@ -65,7 +66,7 @@ public class ProductController {
         return productRepository.getAllProductsOfTypeForPeriod(startDate, endDate, typeId);
     }
 
-    @GetMapping("/product/get-all/of-farmer/{fid}/of-period/{sd}/{ed}")
+    @GetMapping("/get-all/of-farmer/{fid}/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsProducedByForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
@@ -74,29 +75,29 @@ public class ProductController {
         return productRepository.getAllProductsProducedByForPeriod(startDate, endDate, farmerId);
     }
 
-    @GetMapping("/product/get-statistics")
+    @GetMapping("/get-statistics")
     public List<ProductionStatisticsResponse> getProductionTypeGrouped() {
         return productRepository.getProductionTypeGrouped();
     }
 
-    @GetMapping("/product/get-statistics/of-type/{ptid}")
+    @GetMapping("/get-statistics/of-type/{ptid}")
     public List<ProductionStatisticsResponse> getProductionOfType(@PathVariable("ptid") Integer productTypeId) {
         return productRepository.getProductionOfType(productTypeId);
     }
 
-    @GetMapping("/product/get-statistics/of-farmer/{fid}")
+    @GetMapping("/get-statistics/of-farmer/{fid}")
     public List<ProductionStatisticsResponse> getProductionOfFarmer(@PathVariable("fid") Integer farmerId) {
         return productRepository.getProductionOfFarmer(farmerId);
     }
 
-    @GetMapping("/product/get-statistics/of-period/{d}")
+    @GetMapping("/get-statistics/of-period/{d}")
     public List<ProductionStatisticsResponse> getProductionTypeGroupedForPeriod(
             @PathVariable("d") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date
     ) {
         return productRepository.getProductionTypeGroupedForPeriod(date, date);
     }
 
-    @GetMapping("/product/get-statistics/of-month/{d}")
+    @GetMapping("/get-statistics/of-month/{d}")
     public List<ProductionStatisticsResponse> getProductionTypeGroupedOfMonth(
             @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM") YearMonth date
     ) {
@@ -106,7 +107,7 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/product/get-statistics/of-week/{d}")
+    @GetMapping("/get-statistics/of-week/{d}")
     public List<ProductionStatisticsResponse> getProductionTypeGroupedOfWeek(
             @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
     ) {
@@ -116,7 +117,7 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/product/get-statistics/of-day/{d}")
+    @GetMapping("/get-statistics/of-day/{d}")
     public List<ProductionStatisticsResponse> getProductionTypeGroupedOfDay(
             @PathVariable("d") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
     ) {
@@ -126,7 +127,7 @@ public class ProductController {
         );
     }
 
-    @GetMapping("/product/get-statistics/of-period/{sd}/{ed}")
+    @GetMapping("/get-statistics/of-period/{sd}/{ed}")
     public List<ProductionStatisticsResponse> getProductionTypeGroupedForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
@@ -134,7 +135,7 @@ public class ProductController {
         return productRepository.getProductionTypeGroupedForPeriod(startDate, endDate);
     }
 
-    @GetMapping("/product/get-statistics/of-farmer/{fid}/of-period/{sd}/{ed}")
+    @GetMapping("/get-statistics/of-farmer/{fid}/of-period/{sd}/{ed}")
     public List<ProductionStatisticsResponse> getProductionOfFarmerForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,

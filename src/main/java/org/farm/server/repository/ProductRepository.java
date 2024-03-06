@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
             @Param("ptid") Integer productTypeId
     );
 
-    @Query("select pe from ProductEntity pe where pe.producedByFarmer.id = :pbid and pe.producedDate between :sd and :ed")
+    @Query("select pe from ProductEntity pe where pe.producedBy.id = :pbid and pe.producedDate between :sd and :ed")
     List<ProductEntity> getAllProductsProducedByForPeriod(
             @Param("sd") LocalDateTime startDate,
             @Param("ed") LocalDateTime endDate,
@@ -36,7 +36,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     @Query("select pe from ProductEntity pe where pe.productType.id = :ptid")
     List<ProductEntity> getAllProductsOfType(@Param("ptid") Integer productTypeId);
 
-    @Query("select pe from ProductEntity pe where pe.producedByFarmer.id = :pbid")
+    @Query("select pe from ProductEntity pe where pe.producedBy.id = :pbid")
     List<ProductEntity> getAllProductsProducedBy(@Param("pbid") Integer producedById);
 
     @Query(
@@ -49,7 +49,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     @Query(
             "select pe.productType.id as productTypeId, sum(pe.amount) as producedAmount " +
                     "from ProductEntity pe " +
-                    "where pe.producedByFarmer.id = :fid " +
+                    "where pe.producedBy.id = :fid " +
                     "group by pe.productType.id"
     )
     List<ProductionStatisticsResponse> getProductionOfFarmer(@Param("fid") Integer farmerId);
@@ -76,7 +76,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     @Query(
             "select pe.productType.id as productTypeId, sum(pe.amount) as producedAmount " +
                     "from ProductEntity pe " +
-                    "where pe.producedByFarmer.id = :fid " +
+                    "where pe.producedBy.id = :fid " +
                     "and pe.producedDate between :sd and :ed " +
                     "group by pe.productType.id"
     )

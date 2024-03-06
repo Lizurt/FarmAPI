@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/product-type")
 public class ProductTypeController {
     private final ProductTypeRepository productTypeRepository;
     private final ProductTypeService productTypeService;
@@ -17,17 +18,17 @@ public class ProductTypeController {
         this.productTypeService = productTypeService;
     }
 
-    @PutMapping("/product-type/save")
+    @PutMapping("/save")
     public ProductTypeEntity addProductType(@RequestBody ProductTypeEntity productTypeEntity) {
         return productTypeService.saveProductType(productTypeEntity);
     }
 
-    @DeleteMapping("/product-type/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
         productTypeRepository.deleteById(id);
     }
 
-    @GetMapping("/product-type/get-all")
+    @GetMapping("/get-all")
     public List<ProductTypeEntity> getAll() {
         return productTypeRepository.findAll();
     }
