@@ -1,6 +1,7 @@
 package org.farm.server.controller;
 
 import org.farm.server.model.entities.ProductTypeEntity;
+import org.farm.server.model.requests.SaveProductTypeRequest;
 import org.farm.server.repository.ProductTypeRepository;
 import org.farm.server.service.ProductTypeService;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/product-type")
 public class ProductTypeController {
     private final ProductTypeRepository productTypeRepository;
     private final ProductTypeService productTypeService;
@@ -17,17 +19,33 @@ public class ProductTypeController {
         this.productTypeService = productTypeService;
     }
 
-    @PutMapping("/product-type/save")
-    public ProductTypeEntity addProductType(@RequestBody ProductTypeEntity productTypeEntity) {
-        return productTypeService.saveProductType(productTypeEntity);
+    /**
+     * Saves a product type based on given product type info
+     *
+     * @param saveProductTypeRequest the product type info
+     * @return the saved product type entity
+     */
+    @PutMapping("/save")
+    public ProductTypeEntity addProductType(@RequestBody SaveProductTypeRequest saveProductTypeRequest) {
+        return productTypeService.saveProductType(saveProductTypeRequest);
     }
 
-    @DeleteMapping("/product-type/delete/{id}")
+    /**
+     * Deletes a product type with specified id
+     *
+     * @param id the product type id
+     */
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Integer id) {
         productTypeRepository.deleteById(id);
     }
 
-    @GetMapping("/product-type/get-all")
+    /**
+     * Gets all product types
+     *
+     * @return all product types
+     */
+    @GetMapping("/get")
     public List<ProductTypeEntity> getAll() {
         return productTypeRepository.findAll();
     }

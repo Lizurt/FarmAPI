@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/units")
 public class UnitsController {
     private final UnitsRepository unitsRepository;
 
@@ -14,18 +15,34 @@ public class UnitsController {
         this.unitsRepository = unitsRepository;
     }
 
-    @GetMapping("/units/get-all")
+    /**
+     * Gets all units
+     *
+     * @return all units
+     */
+    @GetMapping("/get")
     public List<UnitsEntity> getAll() {
         return unitsRepository.findAll();
     }
 
-    @PutMapping("/units/save")
+    /**
+     * Saves a unit based on given info
+     *
+     * @param unitsEntity the unit
+     * @return the saved unit
+     */
+    @PutMapping("/save")
     public UnitsEntity save(@RequestBody UnitsEntity unitsEntity) {
         return unitsRepository.save(unitsEntity);
     }
 
-    @DeleteMapping("/units/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        unitsRepository.deleteById(id);
+    /**
+     * Deletes a unit based on given id
+     *
+     * @param unitId the unit id
+     */
+    @DeleteMapping("/delete/{unitId}")
+    public void delete(@PathVariable Integer unitId) {
+        unitsRepository.deleteById(unitId);
     }
 }

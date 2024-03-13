@@ -7,31 +7,35 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Table(name = "product")
 @Entity
+@Table(name = "harvest_quota")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class ProductEntity {
+public class HarvestQuotaEntity {
     @Id
-    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "harvest_quota_id")
     private Integer id;
+
+    @Column(nullable = false)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date startDate;
+
+    @Column(nullable = false)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "product_type_id", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
+    private ProductTypeEntity productType;
 
     @Column(nullable = false)
     private Double amount;
 
-    @Column(nullable = false)
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date producedDate;
-
     @ManyToOne
-    @JoinColumn(name = "farmer_id")
+    @JoinColumn(name = "farmer_id", nullable = false)
     @JsonIdentityReference(alwaysAsId = true)
-    private FarmerEntity producedBy;
-
-    @ManyToOne()
-    @JoinColumn(name = "product_type_id", nullable = false)
-    @JsonIdentityReference(alwaysAsId = true)
-    private ProductTypeEntity productType;
+    private FarmerEntity farmer;
 
     public Integer getId() {
         return id;
@@ -41,20 +45,20 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public double getAmount() {
-        return amount;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getProducedDate() {
-        return producedDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setProducedDate(Date producedDate) {
-        this.producedDate = producedDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public ProductTypeEntity getProductType() {
@@ -65,11 +69,19 @@ public class ProductEntity {
         this.productType = productType;
     }
 
-    public FarmerEntity getProducedBy() {
-        return producedBy;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setProducedBy(FarmerEntity producedBy) {
-        this.producedBy = producedBy;
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public FarmerEntity getFarmer() {
+        return farmer;
+    }
+
+    public void setFarmer(FarmerEntity farmer) {
+        this.farmer = farmer;
     }
 }
