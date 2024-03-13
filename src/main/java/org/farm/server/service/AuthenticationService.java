@@ -6,7 +6,6 @@ import org.farm.server.model.requests.SignInRequest;
 import org.farm.server.model.requests.SignUpRequest;
 import org.farm.server.model.responses.JwtAuthenticationResponse;
 import org.farm.server.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
