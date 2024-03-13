@@ -18,11 +18,23 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
+    /**
+     * Creates a user based on sign up info and also generates and return a jwt
+     *
+     * @param request a sign up request
+     * @return a jwt
+     */
     @PostMapping("/sign-up")
     public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) {
         return authenticationService.signUp(request);
     }
 
+    /**
+     * Generates a jwt based on sign in info
+     *
+     * @param request a sign in request
+     * @return a jwt
+     */
     @PostMapping("/sign-in")
     public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) {
         return authenticationService.signIn(request);

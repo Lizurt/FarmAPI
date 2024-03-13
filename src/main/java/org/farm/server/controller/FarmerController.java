@@ -21,16 +21,32 @@ public class FarmerController {
         this.farmerService = farmerService;
     }
 
+    /**
+     * Gets all farmers
+     *
+     * @return all farmers of a database
+     */
     @GetMapping("/get-all")
     public List<FarmerEntity> getAll() {
         return farmerRepository.findAll();
     }
 
+    /**
+     * Saves a farmer based on request info
+     *
+     * @param saveFarmerRequest a request with new farmer info
+     * @return a saved farmer entity
+     */
     @PutMapping("/save")
     public FarmerEntity save(@RequestBody @Validated SaveFarmerRequest saveFarmerRequest) {
         return farmerService.saveFarmer(saveFarmerRequest);
     }
 
+    /**
+     * Deletes a farmer with the id from a database
+     *
+     * @param farmerId the id
+     */
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Integer farmerId) {
         farmerRepository.deleteById(farmerId);

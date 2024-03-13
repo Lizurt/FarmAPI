@@ -20,28 +20,45 @@ public class RatingController {
         this.ratingService = ratingService;
     }
 
+    /**
+     * Saves a rating with a given info
+     *
+     * @param saveRatingRequest the rating info
+     * @return the saved rating
+     */
     @PutMapping("/save")
     public RatingEntity save(@RequestBody SaveRatingRequest saveRatingRequest) {
         return ratingService.save(saveRatingRequest);
     }
 
+    /**
+     * Gets all ratings
+     *
+     * @return all ratings
+     */
     @GetMapping("/get")
     public List<RatingEntity> get() {
         return ratingRepository.findAll();
     }
 
-    @GetMapping("/get/{id}")
-    public RatingEntity get(@PathVariable("id") Integer id) {
-        return ratingRepository.findById(id).orElse(null);
-    }
-
+    /**
+     * Gets all ratings of a specified farmer
+     *
+     * @param farmerId the farmer id
+     * @return all ratings of the farmer
+     */
     @GetMapping("/get/of-farmer/{id}")
-    public List<RatingEntity> getOfFarmer(@PathVariable("id") Integer id) {
-        return ratingRepository.findAllByFarmerId(id);
+    public List<RatingEntity> getOfFarmer(@PathVariable("id") Integer farmerId) {
+        return ratingRepository.findAllByFarmerId(farmerId);
     }
 
+    /**
+     * Deletes a rating based on a given id
+     *
+     * @param ratingId the rating id
+     */
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Integer id) {
-        ratingRepository.deleteById(id);
+    public void delete(@PathVariable("id") Integer ratingId) {
+        ratingRepository.deleteById(ratingId);
     }
 }

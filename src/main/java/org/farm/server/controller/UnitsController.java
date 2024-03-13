@@ -15,18 +15,34 @@ public class UnitsController {
         this.unitsRepository = unitsRepository;
     }
 
+    /**
+     * Gets all units
+     *
+     * @return all units
+     */
     @GetMapping("/get-all")
     public List<UnitsEntity> getAll() {
         return unitsRepository.findAll();
     }
 
+    /**
+     * Saves a unit based on given info
+     *
+     * @param unitsEntity the unit
+     * @return the saved unit
+     */
     @PutMapping("/save")
     public UnitsEntity save(@RequestBody UnitsEntity unitsEntity) {
         return unitsRepository.save(unitsEntity);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        unitsRepository.deleteById(id);
+    /**
+     * Deletes a unit based on given id
+     *
+     * @param unitId the unit id
+     */
+    @DeleteMapping("/delete/{unitId}")
+    public void delete(@PathVariable Integer unitId) {
+        unitsRepository.deleteById(unitId);
     }
 }
