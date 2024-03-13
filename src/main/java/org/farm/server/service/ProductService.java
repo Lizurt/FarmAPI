@@ -1,8 +1,5 @@
 package org.farm.server.service;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 import org.farm.server.model.entities.FarmerEntity;
 import org.farm.server.model.entities.ProductEntity;
 import org.farm.server.model.entities.ProductTypeEntity;
@@ -12,8 +9,13 @@ import org.farm.server.repository.FarmerRepository;
 import org.farm.server.repository.ProductRepository;
 import org.farm.server.repository.ProductTypeRepository;
 import org.farm.server.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -33,27 +35,20 @@ public class ProductService {
 
     private final FarmerRepository farmerRepository;
 
-    @Value("${app.production.statistics.report.smtp.address}")
-    private String mailSmtpAddress;
-
-    @Value("${app.production.statistics.report.smtp.port}")
-    private String mailSmtpPort;
-
+    private final JavaMailSender mailSender;
 
     @Value("${app.production.statistics.report.receiver.mail}")
     private String reportReceiverMail;
 
-    @Value("${app.production.statistics.report.sender.mail}")
+    @Value("${spring.mail.username}")
     private String reportSenderMail;
 
-    @Value("${app.production.statistics.report.sender.password}")
-    private String reportSenderPassword;
-
-    public ProductService(ProductRepository productRepository, ProductTypeRepository productTypeRepository, UserRepository userRepository, FarmerRepository farmerRepository) {
+    public ProductService(ProductRepository productRepository, ProductTypeRepository productTypeRepository, UserRepository userRepository, FarmerRepository farmerRepository, JavaMailSender mailSender) {
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
         this.userRepository = userRepository;
         this.farmerRepository = farmerRepository;
+        this.mailSender = mailSender;
     }
 
     public ProductEntity saveProduct(SaveProductRequest saveProductRequest) {
@@ -117,34 +112,17 @@ public class ProductService {
         return report;
     }
 
-    @Scheduled(cron = "${app.production.statistics.report.cron}")
+    @Scheduled(cron = "${app.production.statistics.report.cron}", zone = "${app.production.statistics.report.timezone}")
     public void createAndSendEverydayReport() {
         LocalDateTime startDate = LocalDateTime.now().toLocalDate().atStartOfDay();
         LocalDateTime endDate = LocalDateTime.now();
         StringBuilder report = createProductionReportForPeriod(startDate, endDate);
 
-        Properties props = new Properties();
-        props.put("mail.smtp.host", mailSmtpAddress);
-        props.put("mail.smtp.port", mailSmtpPort);
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(reportSenderMail, reportSenderPassword);
-            }
-        });
-
-        Message mimeMessage = new MimeMessage(session);
-        try {
-            mimeMessage.setFrom(new InternetAddress());
-            mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(reportReceiverMail));
-            mimeMessage.setSubject("Scheduled production report");
-            mimeMessage.setText(report.toString());
-            Transport.send(mimeMessage);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(reportSenderMail);
+        message.setTo(reportReceiverMail);
+        message.setSubject("Scheduled production report");
+        message.setText(report.toString());
+        mailSender.send(message);
     }
 }
