@@ -20,7 +20,7 @@ public class UserController {
      *
      * @return all users
      */
-    @GetMapping("/get-all")
+    @GetMapping("/get")
     public List<UserEntity> getAll() {
         return userRepository.findAll();
     }

@@ -51,7 +51,7 @@ public class ProductController {
      *
      * @return all products
      */
-    @GetMapping("/get-all")
+    @GetMapping("/get")
     public List<ProductEntity> getAll() {
         return productRepository.findAll();
     }
@@ -62,7 +62,7 @@ public class ProductController {
      * @param productTypeId the type of product
      * @return all products based on given product type
      */
-    @GetMapping("/get-all/of-type/{ptid}")
+    @GetMapping("/get/of-type/{ptid}")
     public List<ProductEntity> getAllProductsOfType(@PathVariable("ptid") Integer productTypeId) {
         return productRepository.getAllProductsOfType(productTypeId);
     }
@@ -73,7 +73,7 @@ public class ProductController {
      * @param farmerId the id of a farmer
      * @return all products broduced by the farmer
      */
-    @GetMapping("/get-all/of-farmer/{fid}")
+    @GetMapping("/get/of-farmer/{fid}")
     public List<ProductEntity> getAllProductsProducedBy(@PathVariable("fid") Integer farmerId) {
         return productRepository.getAllProductsProducedBy(farmerId);
     }
@@ -85,7 +85,7 @@ public class ProductController {
      * @param endDate the end of the period
      * @return all products produced ruring the given period
      */
-    @GetMapping("/get-all/of-period/{sd}/{ed}")
+    @GetMapping("/get/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
@@ -101,7 +101,7 @@ public class ProductController {
      * @param typeId the type of product
      * @return all products of the type during the period
      */
-    @GetMapping("/get-all/of-type/{tid}/of-period/{sd}/{ed}")
+    @GetMapping("/get/of-type/{tid}/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsOfTypeForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
@@ -118,7 +118,7 @@ public class ProductController {
      * @param farmerId the farmer id
      * @return all products produced by the farmer during the period
      */
-    @GetMapping("/get-all/of-farmer/{fid}/of-period/{sd}/{ed}")
+    @GetMapping("/get/of-farmer/{fid}/of-period/{sd}/{ed}")
     public List<ProductEntity> getAllProductsProducedByForPeriod(
             @PathVariable("sd") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @PathVariable("ed") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,

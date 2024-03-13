@@ -26,7 +26,7 @@ public class FarmerController {
      *
      * @return all farmers of a database
      */
-    @GetMapping("/get-all")
+    @GetMapping("/get")
     public List<FarmerEntity> getAll() {
         return farmerRepository.findAll();
     }

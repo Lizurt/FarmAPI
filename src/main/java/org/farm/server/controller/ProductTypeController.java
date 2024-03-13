@@ -45,7 +45,7 @@ public class ProductTypeController {
      *
      * @return all product types
      */
-    @GetMapping("/get-all")
+    @GetMapping("/get")
     public List<ProductTypeEntity> getAll() {
         return productTypeRepository.findAll();
     }

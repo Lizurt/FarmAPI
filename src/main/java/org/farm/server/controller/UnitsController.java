@@ -20,7 +20,7 @@ public class UnitsController {
      *
      * @return all units
      */
-    @GetMapping("/get-all")
+    @GetMapping("/get")
     public List<UnitsEntity> getAll() {
         return unitsRepository.findAll();
     }
