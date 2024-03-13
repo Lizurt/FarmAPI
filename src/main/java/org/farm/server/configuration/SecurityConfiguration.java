@@ -47,8 +47,10 @@ public class SecurityConfiguration {
                 }))
 
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("/error/**").permitAll()
                         .requestMatchers("/auth/sign-in").permitAll()
                         .requestMatchers("/product/save").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
+                        .requestMatchers("/rating/get/**").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
                         .anyRequest().hasAuthority(Role.ADMIN.name())
                 ).sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

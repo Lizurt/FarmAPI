@@ -1,6 +1,9 @@
 package org.farm.server.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.farm.server.configuration.Role;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "farm_user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserEntity implements UserDetails {
     @Id
     @Column(name = "user_id")

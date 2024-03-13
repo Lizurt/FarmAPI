@@ -1,12 +1,13 @@
 package org.farm.server.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "farmer")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class FarmerEntity {
     @Id
     @Column(name = "farmer_id")
@@ -23,12 +24,17 @@ public class FarmerEntity {
     private String patronymic;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private UserEntity user;
 
     @OneToMany(mappedBy = "producedBy")
     @JsonIgnore
     private Set<ProductEntity> producedProducts;
+
+    @OneToMany(mappedBy = "farmer")
+    @JsonIgnore
+    private Set<RatingEntity> ratings;
 
     public Integer getId() {
         return id;

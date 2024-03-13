@@ -1,11 +1,15 @@
 package org.farm.server.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Table(name = "product")
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ProductEntity {
     @Id
     @Column(name = "product_id")
@@ -21,10 +25,12 @@ public class ProductEntity {
 
     @ManyToOne
     @JoinColumn(name = "farmer_id")
+    @JsonIdentityReference(alwaysAsId = true)
     private FarmerEntity producedBy;
 
     @ManyToOne()
     @JoinColumn(name = "product_type_id", nullable = false)
+    @JsonIdentityReference(alwaysAsId = true)
     private ProductTypeEntity productType;
 
     public Integer getId() {
