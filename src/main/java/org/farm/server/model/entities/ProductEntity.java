@@ -17,7 +17,7 @@ public class ProductEntity {
     private Integer id;
 
     @Column(nullable = false)
-    private double amount;
+    private Double amount;
 
     @Column(nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)

@@ -37,16 +37,16 @@ public class UserEntity implements UserDetails {
     private Role role;
 
     @Column(nullable = false)
-    private boolean isExpired;
+    private Boolean isExpired;
 
     @Column(nullable = false)
-    private boolean isLocked;
+    private Boolean isLocked;
 
     @Column(nullable = false)
-    private boolean isCredentialsExpired;
+    private Boolean isCredentialsExpired;
 
     @Column(nullable = false)
-    private boolean isDisabled;
+    private Boolean isDisabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
