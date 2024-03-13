@@ -4,7 +4,6 @@ import org.farm.server.model.entities.RatingEntity;
 import org.farm.server.model.requests.SaveRatingRequest;
 import org.farm.server.repository.RatingRepository;
 import org.farm.server.service.RatingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

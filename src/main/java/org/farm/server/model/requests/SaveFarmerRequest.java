@@ -1,39 +1,34 @@
 package org.farm.server.model.requests;
 
-import jakarta.validation.constraints.NotNull;
-
 public class SaveFarmerRequest {
-    @NotNull
     private String name;
 
-    @NotNull
     private String surname;
 
     private String patronymic;
 
-    @NotNull
     private Integer userId;
 
-    public SaveFarmerRequest(@NotNull String name, @NotNull String surname, String patronymic, @NotNull Integer userId) {
+    public SaveFarmerRequest(String name, String surname, String patronymic, Integer userId) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
         this.userId = userId;
     }
 
-    public @NotNull String getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public @NotNull String getSurname() {
+    public String getSurname() {
         return surname;
     }
 
-    public void setSurname(@NotNull String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
@@ -45,11 +40,11 @@ public class SaveFarmerRequest {
         this.patronymic = patronymic;
     }
 
-    public @NotNull Integer getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(@NotNull Integer userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 }

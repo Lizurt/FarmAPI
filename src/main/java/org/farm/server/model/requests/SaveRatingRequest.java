@@ -1,30 +1,25 @@
 package org.farm.server.model.requests;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-
 import java.util.Date;
 
 public class SaveRatingRequest {
-    @NotNull
     private Double rating;
 
     private Date date;
 
-    @NotNull
     private Integer farmerId;
 
-    public SaveRatingRequest(@NotNull Double rating, Date date, @NotNull Integer farmerId) {
+    public SaveRatingRequest(Double rating, Date date, Integer farmerId) {
         this.rating = rating;
         this.date = date;
         this.farmerId = farmerId;
     }
 
-    public @NotNull Double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(@NotNull Double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -36,11 +31,11 @@ public class SaveRatingRequest {
         this.date = date;
     }
 
-    public @NotNull Integer getFarmerId() {
+    public Integer getFarmerId() {
         return farmerId;
     }
 
-    public void setFarmerId(@NotNull Integer farmerId) {
+    public void setFarmerId(Integer farmerId) {
         this.farmerId = farmerId;
     }
 }

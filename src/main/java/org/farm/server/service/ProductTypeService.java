@@ -4,7 +4,6 @@ import org.farm.server.model.entities.ProductTypeEntity;
 import org.farm.server.model.entities.UnitsEntity;
 import org.farm.server.repository.ProductTypeRepository;
 import org.farm.server.repository.UnitsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

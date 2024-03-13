@@ -3,8 +3,6 @@ package org.farm.server.service;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.util.Properties;
-
 import org.farm.server.model.entities.FarmerEntity;
 import org.farm.server.model.entities.ProductEntity;
 import org.farm.server.model.entities.ProductTypeEntity;
@@ -18,7 +16,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 @Service

@@ -2,10 +2,8 @@ package org.farm.server.controller;
 
 import org.farm.server.model.entities.HarvestQuotaEntity;
 import org.farm.server.model.requests.SaveHarvestQuotaRequest;
-import org.farm.server.model.requests.SaveRatingRequest;
 import org.farm.server.repository.HarvestQuotaRepository;
 import org.farm.server.service.HarvestQuotaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

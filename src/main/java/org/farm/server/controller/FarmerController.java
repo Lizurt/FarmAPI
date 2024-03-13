@@ -1,10 +1,8 @@
 package org.farm.server.controller;
 
 import org.farm.server.model.entities.FarmerEntity;
-import org.farm.server.model.entities.UserEntity;
 import org.farm.server.model.requests.SaveFarmerRequest;
 import org.farm.server.repository.FarmerRepository;
-import org.farm.server.repository.UserRepository;
 import org.farm.server.service.FarmerService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

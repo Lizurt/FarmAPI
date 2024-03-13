@@ -1,8 +1,5 @@
 package org.farm.server.model.requests;
 
-import jakarta.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.Date;
 
 public class SaveHarvestQuotaRequest {
@@ -12,22 +9,19 @@ public class SaveHarvestQuotaRequest {
 
     private Date endDate;
 
-    @NotNull
     private Integer productTypeId;
 
-    @NotNull
     private Integer farmerId;
 
-    @NotNull
     private Double amount;
 
     public SaveHarvestQuotaRequest(
             Integer id,
             Date startDate,
             Date endDate,
-            @NotNull Integer productTypeId,
-            @NotNull Integer farmerId,
-            @NotNull Double amount
+            Integer productTypeId,
+            Integer farmerId,
+            Double amount
     ) {
         this.id = id;
         this.startDate = startDate;
@@ -61,27 +55,27 @@ public class SaveHarvestQuotaRequest {
         this.endDate = endDate;
     }
 
-    public @NotNull Integer getProductTypeId() {
+    public Integer getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(@NotNull Integer productTypeId) {
+    public void setProductTypeId(Integer productTypeId) {
         this.productTypeId = productTypeId;
     }
 
-    public @NotNull Integer getFarmerId() {
+    public Integer getFarmerId() {
         return farmerId;
     }
 
-    public void setFarmerId(@NotNull Integer farmerId) {
+    public void setFarmerId(Integer farmerId) {
         this.farmerId = farmerId;
     }
 
-    public @NotNull Double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(@NotNull Double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }

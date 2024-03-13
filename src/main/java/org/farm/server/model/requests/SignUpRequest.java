@@ -4,7 +4,9 @@ import org.farm.server.configuration.Role;
 
 public class SignUpRequest {
     private String username;
+
     private String email;
+
     private String password;
 
     private Role role;

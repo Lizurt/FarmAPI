@@ -1,9 +1,7 @@
 package org.farm.server.service;
 
-import org.farm.server.configuration.Role;
 import org.farm.server.model.entities.UserEntity;
 import org.farm.server.repository.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
