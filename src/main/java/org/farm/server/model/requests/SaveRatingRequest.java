@@ -1,5 +1,6 @@
 package org.farm.server.model.requests;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
@@ -19,11 +20,11 @@ public class SaveRatingRequest {
         this.farmerId = farmerId;
     }
 
-    public Double getRating() {
+    public @NotNull Double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(@NotNull Double rating) {
         this.rating = rating;
     }
 
@@ -35,11 +36,11 @@ public class SaveRatingRequest {
         this.date = date;
     }
 
-    public Integer getFarmerId() {
+    public @NotNull Integer getFarmerId() {
         return farmerId;
     }
 
-    public void setFarmerId(Integer farmerId) {
+    public void setFarmerId(@NotNull Integer farmerId) {
         this.farmerId = farmerId;
     }
 }

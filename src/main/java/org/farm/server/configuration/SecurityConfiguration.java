@@ -51,6 +51,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/sign-in").permitAll()
                         .requestMatchers("/product/save").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
                         .requestMatchers("/rating/get/**").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
+                        .requestMatchers("/harvest-quota/get/**").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
+                        .requestMatchers("/get-statistics/of-farmer/**").hasAnyAuthority(Role.FARMER.name(), Role.ADMIN.name())
                         .anyRequest().hasAuthority(Role.ADMIN.name())
                 ).sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
