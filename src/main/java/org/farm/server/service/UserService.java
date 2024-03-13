@@ -2,10 +2,12 @@ package org.farm.server.service;
 
 import org.farm.server.model.entities.UserEntity;
 import org.farm.server.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,12 +23,11 @@ public class UserService implements UserDetailsService {
 
     public UserEntity create(UserEntity user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            // todo exceptions or messages to requester?
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         return save(user);
@@ -34,6 +35,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(""));
+        return userRepository.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

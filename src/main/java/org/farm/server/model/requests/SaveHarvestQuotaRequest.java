@@ -15,22 +15,6 @@ public class SaveHarvestQuotaRequest {
 
     private Double amount;
 
-    public SaveHarvestQuotaRequest(
-            Integer id,
-            Date startDate,
-            Date endDate,
-            Integer productTypeId,
-            Integer farmerId,
-            Double amount
-    ) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.productTypeId = productTypeId;
-        this.farmerId = farmerId;
-        this.amount = amount;
-    }
-
     public Integer getId() {
         return id;
     }

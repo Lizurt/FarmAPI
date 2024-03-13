@@ -35,6 +35,15 @@ public class HarvestQuotaService {
     }
 
     public HarvestQuotaEntity save(SaveHarvestQuotaRequest saveHarvestQuotaRequest) {
+        if (saveHarvestQuotaRequest.getAmount() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (saveHarvestQuotaRequest.getFarmerId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if (saveHarvestQuotaRequest.getProductTypeId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         if (saveHarvestQuotaRequest.getStartDate() == null) {
             saveHarvestQuotaRequest.setStartDate(Date.from(ZonedDateTime.now().toInstant()));
         }

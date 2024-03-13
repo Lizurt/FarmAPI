@@ -6,14 +6,17 @@ import jakarta.mail.internet.MimeMessage;
 import org.farm.server.model.entities.FarmerEntity;
 import org.farm.server.model.entities.ProductEntity;
 import org.farm.server.model.entities.ProductTypeEntity;
+import org.farm.server.model.requests.SaveProductRequest;
 import org.farm.server.model.responses.ProductionStatisticsResponse;
 import org.farm.server.repository.FarmerRepository;
 import org.farm.server.repository.ProductRepository;
 import org.farm.server.repository.ProductTypeRepository;
 import org.farm.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -53,25 +56,16 @@ public class ProductService {
         this.farmerRepository = farmerRepository;
     }
 
-    public ProductEntity saveProduct(ProductEntity productEntity) {
-        ProductTypeEntity productTypeEntity = productEntity.getProductType();
-        if (productTypeEntity != null) {
-            if (productTypeEntity.getId() != null) {
-                productTypeEntity = productTypeRepository.findById(productTypeEntity.getId()).orElse(null);
-            } else {
-                productTypeEntity = null;
-            }
-        }
+    public ProductEntity saveProduct(SaveProductRequest saveProductRequest) {
+        ProductTypeEntity productTypeEntity = productTypeRepository.findById(saveProductRequest.getProductTypeId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
+        );
+        ProductEntity productEntity = new ProductEntity();
         productEntity.setProductType(productTypeEntity);
 
-        FarmerEntity farmerEntity = productEntity.getProducedBy();
-        if (farmerEntity != null) {
-            if (farmerEntity.getId() != null) {
-                farmerEntity = farmerRepository.findById(farmerEntity.getId()).orElse(null);
-            } else {
-                farmerEntity = null;
-            }
-        }
+        FarmerEntity farmerEntity = farmerRepository.findById(saveProductRequest.getFarmerId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST)
+        );
         productEntity.setProducedBy(farmerEntity);
 
         if (productEntity.getProducedDate() == null) {
@@ -81,6 +75,9 @@ public class ProductService {
     }
 
     public StringBuilder createProductionReportForPeriod(LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate == null || endDate == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         List<ProductionStatisticsResponse> productionStatistics = productRepository.getProductionTypeGroupedForPeriod(
                 startDate,
                 endDate

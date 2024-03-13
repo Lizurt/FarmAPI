@@ -9,13 +9,6 @@ public class SaveFarmerRequest {
 
     private Integer userId;
 
-    public SaveFarmerRequest(String name, String surname, String patronymic, Integer userId) {
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.userId = userId;
-    }
-
     public String getName() {
         return name;
     }

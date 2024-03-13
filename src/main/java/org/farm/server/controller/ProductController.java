@@ -1,6 +1,7 @@
 package org.farm.server.controller;
 
 import org.farm.server.model.entities.ProductEntity;
+import org.farm.server.model.requests.SaveProductRequest;
 import org.farm.server.model.responses.ProductionStatisticsResponse;
 import org.farm.server.repository.ProductRepository;
 import org.farm.server.service.ProductService;
@@ -25,8 +26,8 @@ public class ProductController {
     }
 
     @PutMapping("/save")
-    public ProductEntity save(@RequestBody ProductEntity productEntity) {
-        return productService.saveProduct(productEntity);
+    public ProductEntity save(@RequestBody SaveProductRequest saveProductRequest) {
+        return productService.saveProduct(saveProductRequest);
     }
 
     @DeleteMapping("/delete/{id}")

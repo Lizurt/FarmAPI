@@ -4,14 +4,6 @@ public class SignInRequest {
     private String username;
     private String password;
 
-    public SignInRequest(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public SignInRequest() {
-    }
-
     public String getUsername() {
         return username;
     }

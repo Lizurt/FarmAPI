@@ -9,12 +9,6 @@ public class SaveRatingRequest {
 
     private Integer farmerId;
 
-    public SaveRatingRequest(Double rating, Date date, Integer farmerId) {
-        this.rating = rating;
-        this.date = date;
-        this.farmerId = farmerId;
-    }
-
     public Double getRating() {
         return rating;
     }

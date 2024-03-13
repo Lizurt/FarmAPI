@@ -1,6 +1,7 @@
 package org.farm.server.controller;
 
 import org.farm.server.model.entities.ProductTypeEntity;
+import org.farm.server.model.requests.SaveProductTypeRequest;
 import org.farm.server.repository.ProductTypeRepository;
 import org.farm.server.service.ProductTypeService;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,8 @@ public class ProductTypeController {
     }
 
     @PutMapping("/save")
-    public ProductTypeEntity addProductType(@RequestBody ProductTypeEntity productTypeEntity) {
-        return productTypeService.saveProductType(productTypeEntity);
+    public ProductTypeEntity addProductType(@RequestBody SaveProductTypeRequest saveProductTypeRequest) {
+        return productTypeService.saveProductType(saveProductTypeRequest);
     }
 
     @DeleteMapping("/delete/{id}")
