@@ -29,7 +29,7 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private Role role;
 
