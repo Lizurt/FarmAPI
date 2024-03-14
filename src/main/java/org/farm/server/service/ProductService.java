@@ -59,13 +59,15 @@ public class ProductService {
         productEntity.setProductType(productTypeEntity);
 
         FarmerEntity farmerEntity = farmerRepository.findById(saveProductRequest.getFarmerId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.BAD_REQUEST)
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
         productEntity.setProducedBy(farmerEntity);
 
-        if (productEntity.getProducedDate() == null) {
-            productEntity.setProducedDate(new Date());
+        if (saveProductRequest.getProducedDate() == null) {
+            saveProductRequest.setProducedDate(new Date());
         }
+        productEntity.setProducedDate(saveProductRequest.getProducedDate());
+        productEntity.setAmount(saveProductRequest.getAmount());
         return productRepository.save(productEntity);
     }
 

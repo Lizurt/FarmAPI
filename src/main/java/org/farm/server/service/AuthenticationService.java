@@ -58,6 +58,11 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
 
+        user.setExpired(false);
+        user.setDisabled(false);
+        user.setCredentialsExpired(false);
+        user.setLocked(false);
+
         userService.create(user);
 
         String jwt = jwtService.generateToken(user);
