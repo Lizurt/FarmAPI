@@ -22,7 +22,13 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
 
-    public AuthenticationService(UserService userService, JwtService jwtService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UserRepository userRepository) {
+    public AuthenticationService(
+            UserService userService,
+            JwtService jwtService,
+            PasswordEncoder passwordEncoder,
+            AuthenticationManager authenticationManager,
+            UserRepository userRepository
+    ) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
@@ -57,6 +63,7 @@ public class AuthenticationService {
         String jwt = jwtService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);
     }
+
     public JwtAuthenticationResponse signIn(SignInRequest request) {
         if (request.getUsername() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
