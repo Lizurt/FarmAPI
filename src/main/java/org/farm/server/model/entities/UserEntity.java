@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.farm.server.configuration.Role;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,7 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    private Role role;
+    private Role role = Role.FARMER;
 
     @Column(nullable = false)
     private Boolean isExpired;
