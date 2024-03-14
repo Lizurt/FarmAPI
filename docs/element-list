@@ -1,0 +1,8 @@
+org.farm.server
+org.farm.server.configuration
+org.farm.server.controller
+org.farm.server.model.entities
+org.farm.server.model.requests
+org.farm.server.model.responses
+org.farm.server.repository
+org.farm.server.service
